@@ -7,7 +7,7 @@ AppBar CustomAppBar(Size size, {required String title}) {
     toolbarHeight: 0.12 * size.height,
     backgroundColor: Colors.transparent,
     elevation: 0,
-    leadingWidth: 100,
+    leadingWidth: 0.235 * size.width,
     centerTitle: true,
     leading: Padding(
       padding: EdgeInsets.all(0.06 * size.width),
