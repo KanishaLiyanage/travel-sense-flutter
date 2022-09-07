@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_sense/screens/placeInfo.dart';
 
-class PlaceCard extends StatelessWidget {
+class PlaceCardRect extends StatelessWidget {
   String img_url =
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_gJgKaW8TSg8AB2aXASKRmVoBPDbvYPzinw&usqp=CAU";
   String title = "Yala National Park";
@@ -25,7 +25,7 @@ class PlaceCard extends StatelessWidget {
       },
       child: Container(
         margin: EdgeInsets.all(0.04 * size.width),
-        height: 0.35 * size.height,
+        height: 0.2 * size.height,
         width: 0.55 * size.width,
         decoration: BoxDecoration(
           color: Colors.amber,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:dio/dio.dart';
-import '../widgets/placeCard.dart';
+import '../widgets/placeCardSqr.dart';
 import '../widgets/categoryBtn.dart';
 import '../widgets/searchBar.dart';
 import '../widgets/weatherStatus.dart';
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 0.45 * size.height,
                     child: ListView.builder(
                       itemBuilder: (context, index) {
-                        return PlaceCard();
+                        return PlaceCardSqr();
                       },
                       itemCount: 5,
                       scrollDirection: Axis.horizontal,
@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 0.45 * size.height,
                     child: ListView.builder(
                       itemBuilder: (context, index) {
-                        return PlaceCard();
+                        return PlaceCardSqr();
                       },
                       itemCount: 5,
                       scrollDirection: Axis.horizontal,

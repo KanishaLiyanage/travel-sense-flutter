@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_sense/models/headerwithBack.dart';
 
 import '../models/backBtn.dart';
 
@@ -12,31 +13,7 @@ class AllPlacesScreen extends StatelessWidget {
       backgroundColor: Color(0xFFDDE8F0),
       body: Column(
         children: [
-          Container(
-            margin: EdgeInsets.only(
-              left: 0.06 * size.width,
-              right: 0.1 * size.width,
-              top: 0.1 * size.height,
-            ),
-            child: Row(
-              children: [
-                BackBtn(),
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 0.04 * size.width,
-                  ),
-                  child: Text(
-                    "All Places in Sri Lanka",
-                    style: TextStyle(
-                      color: Color(0xFF004581),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 0.025 * size.height,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          HeaderwithBackBtn(title: "All Places in Sri Lanka"),
         ],
       ),
     );
