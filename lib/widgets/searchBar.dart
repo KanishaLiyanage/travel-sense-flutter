@@ -13,7 +13,7 @@ class SearchBar extends StatelessWidget {
       ),
       child: TextField(
         style: TextStyle(
-          fontSize: 12,
+          fontSize: 0.014 * size.height,
           color: Colors.blue,
         ),
         decoration: InputDecoration(
@@ -23,7 +23,7 @@ class SearchBar extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.search_rounded,
-                size: 30,
+                size: 0.04 * size.height,
               ),
             ),
           ),

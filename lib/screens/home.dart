@@ -49,13 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchBar(),
           SizedBox(height: 0.02 * size.height),
           Container(
-            height: 0.54 * size.height,
+            height: 0.52 * size.height,
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 0.03 * size.height),
+                  SizedBox(height: 0.02 * size.height),
                   CategoryButtons(
-                    title: "Around You",
+                    title: "Places Around You",
                     naviScreen: '/aroundU',
                   ),
                   Container(
@@ -93,7 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getData,
-        child: Icon(Icons.refresh_rounded),
+        child: Icon(
+          Icons.refresh_rounded,
+          size: 0.03 * size.height,
+        ),
       ),
     );
   }

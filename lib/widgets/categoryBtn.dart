@@ -21,12 +21,12 @@ class CategoryButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 0.3 * size.width,
+            //width: 0.25 * size.width,
             padding: EdgeInsets.all(0.01 * size.height),
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 0.013 * size.height,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
               ),
@@ -44,7 +44,7 @@ class CategoryButtons extends StatelessWidget {
             child: Text(
               "View more",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 0.015 * size.height,
                 color: Color(0xFF018ABD),
                 fontWeight: FontWeight.w500,
               ),

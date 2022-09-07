@@ -30,7 +30,7 @@ class PlaceCard extends StatelessWidget {
             style: TextStyle(
               color: Color(0xFFDDE8F0),
               fontWeight: FontWeight.w600,
-              fontSize: 18,
+              fontSize: 0.035 * size.height,
               shadows: <Shadow>[
                 Shadow(
                   offset: Offset(1.0, 1.0),

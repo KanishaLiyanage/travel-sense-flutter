@@ -17,7 +17,8 @@ class Header extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(right: 0.04 * size.width),
             child: CircleAvatar(
-              maxRadius: 28,
+              // maxRadius: 28,
+              maxRadius: 0.035 * size.height,
               backgroundImage: NetworkImage(
                   "https://cdn.dribbble.com/users/323571/screenshots/5412611/batman_4x.jpg"),
             ),
@@ -26,6 +27,7 @@ class Header extends StatelessWidget {
             "Hi, Kanisha!",
             style: TextStyle(
               color: Color(0xFF004581),
+              fontSize: 0.018 * size.height,
             ),
           ),
           Spacer(),
@@ -33,7 +35,7 @@ class Header extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.notifications_active_rounded,
-                size: 35,
+                size: 0.04 * size.height,
               )),
         ],
       ),

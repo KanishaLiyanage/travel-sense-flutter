@@ -20,7 +20,7 @@ class WeatherStatusCard extends StatelessWidget {
                   style: TextStyle(
                     color: Color(0xFF004581),
                     fontWeight: FontWeight.w600,
-                    fontSize: 25,
+                    fontSize: 0.035 * size.height,
                   ),
                 ),
               ),
@@ -38,7 +38,7 @@ class WeatherStatusCard extends StatelessWidget {
                   style: TextStyle(
                     color: Color(0xFF004581),
                     fontWeight: FontWeight.w600,
-                    fontSize: 25,
+                    fontSize: 0.035 * size.height,
                   ),
                 ),
               ),
