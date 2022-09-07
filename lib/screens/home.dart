@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:dio/dio.dart';
+import '../widgets/placeCard.dart';
+import '../widgets/categoryBtn.dart';
 import '../widgets/searchBar.dart';
 import '../widgets/weatherStatus.dart';
 import '../widgets/header.dart';
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var url = "";
+  var items = [];
 
   Dio dio = Dio();
 
@@ -38,26 +41,40 @@ class _HomeScreenState extends State<HomeScreen> {
           WeatherStatusCard(),
           SizedBox(height: 0.04 * size.height),
           SearchBar(),
-          SizedBox(height: 0.04 * size.height),
+          SizedBox(height: 0.01 * size.height),
           Container(
-            height: 0.048 * size.height,
-            width: 0.4 * size.width,
-            margin: EdgeInsets.only(
-              left: 0.1 * size.width,
-              right: 0.1 * size.width,
-            ),
-            padding: EdgeInsets.all(0.01 * size.height),
-            child: Text(
-              "Recomended",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
+            height: 0.55 * size.height,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 0.03 * size.height),
+                  CategoryButtons(title: "Around You"),
+                  Container(
+                    padding: EdgeInsets.all(0.03 * size.width),
+                    height: 0.45 * size.height,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return PlaceCard();
+                      },
+                      itemCount: 5,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  ),
+                  CategoryButtons(title: "All Places"),
+                  Container(
+                    padding: EdgeInsets.all(0.03 * size.width),
+                    height: 0.45 * size.height,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return PlaceCard();
+                      },
+                      itemCount: 5,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                  ),
+                  //SizedBox(height: 0.03 * size.height),
+                ],
               ),
-              textAlign: TextAlign.center,
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xFF018ABD),
-              borderRadius: BorderRadius.circular(25),
             ),
           ),
         ],
