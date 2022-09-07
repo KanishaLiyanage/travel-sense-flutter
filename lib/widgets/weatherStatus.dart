@@ -34,7 +34,7 @@ class WeatherStatusCard extends StatelessWidget {
                   right: 0.1 * size.width,
                 ),
                 child: Text(
-                  "world with us!",
+                  "Sri Lanka with us!",
                   style: TextStyle(
                     color: Color(0xFF004581),
                     fontWeight: FontWeight.w600,

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 class CategoryButtons extends StatelessWidget {
   String title;
+  String naviScreen;
 
-  CategoryButtons({required this.title});
+  CategoryButtons({
+    required this.title,
+    required this.naviScreen,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,9 @@ class CategoryButtons extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(naviScreen);
+            },
             child: Text(
               "View more",
               style: TextStyle(

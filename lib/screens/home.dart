@@ -30,6 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -41,14 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
           WeatherStatusCard(),
           SizedBox(height: 0.04 * size.height),
           SearchBar(),
-          SizedBox(height: 0.01 * size.height),
+          SizedBox(height: 0.02 * size.height),
           Container(
-            height: 0.55 * size.height,
+            height: 0.54 * size.height,
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   SizedBox(height: 0.03 * size.height),
-                  CategoryButtons(title: "Around You"),
+                  CategoryButtons(
+                    title: "Around You",
+                    naviScreen: '/aroundU',
+                  ),
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
@@ -60,7 +69,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                     ),
                   ),
-                  CategoryButtons(title: "All Places"),
+                  CategoryButtons(
+                    title: "All Places",
+                    naviScreen: '/allPlaces',
+                  ),
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
@@ -78,6 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: getData,
+        child: Icon(Icons.refresh_rounded),
       ),
     );
   }
