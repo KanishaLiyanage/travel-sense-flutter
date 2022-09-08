@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CategoryButtons extends StatelessWidget {
-  String title;
-  String naviScreen;
+import '../screens/aroundYou.dart';
 
-  CategoryButtons({
+class CategoryBtnAroundU extends StatelessWidget {
+  String title;
+  var placesList;
+
+  CategoryBtnAroundU({
     required this.title,
-    required this.naviScreen,
+    required this.placesList,
   });
 
   @override
@@ -39,7 +41,15 @@ class CategoryButtons extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pushNamed(naviScreen);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return AroundYouScreen(
+                      placesList: placesList,
+                    );
+                  },
+                ),
+              );
             },
             child: Text(
               "View more",

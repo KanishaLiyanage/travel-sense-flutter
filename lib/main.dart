@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'screens/landing.dart';
 import './screens/home.dart';
-import './screens/allPlaces.dart';
-import './screens/aroundYou.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,8 +20,6 @@ class MyApp extends StatelessWidget {
       home: LandingScreen(),
       routes: {
         '/home': (context) => HomeScreen(),
-        '/aroundU': (context) => AroundYouScreen(),
-        '/allPlaces': (context) => AllPlacesScreen(),
       },
     );
   }

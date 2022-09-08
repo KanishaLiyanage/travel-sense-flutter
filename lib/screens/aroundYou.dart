@@ -4,7 +4,11 @@ import '../models/customAppBar.dart';
 import '../widgets/placeCardRect.dart';
 
 class AroundYouScreen extends StatelessWidget {
-  const AroundYouScreen({Key? key}) : super(key: key);
+  var placesList;
+
+  AroundYouScreen({
+    required this.placesList,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,12 @@ class AroundYouScreen extends StatelessWidget {
         child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) {
-            return PlaceCardRect();
+            return PlaceCardRect(
+              name: placesList[index]['name'],
+              img_url: placesList[index]['image'],
+              prov: placesList[index]['province'],
+              desc: placesList[index]['description'],
+            );
           },
         ),
       ),

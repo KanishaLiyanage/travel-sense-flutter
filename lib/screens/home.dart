@@ -1,10 +1,9 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:dio/dio.dart';
+
+import '../widgets/catBtnAllPlaces.dart';
+import '../widgets/catBtnAroundU.dart';
 import '../widgets/placeCardSqr.dart';
-import '../widgets/categoryBtn.dart';
 import '../widgets/searchBar.dart';
 import '../widgets/weatherStatus.dart';
 import '../widgets/header.dart';
@@ -27,12 +26,13 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       var response = await dio.get('$url/user/home');
       placesList = response.data;
-      var placesListLength = (placesList.length).toString();
+      //var placesListLength = (placesList.length).toString();
       //print(placesList[1]);
       // print("Items Length is: " + placesListLength);
       // place = placesList[1];
       // print(place);
       // print(place['name']);
+      print('button clicked!');
     } catch (e) {
       print(e);
     }
@@ -64,47 +64,39 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 0.02 * size.height),
-                  CategoryButtons(
+                  CategoryBtnAroundU(
                     title: "Places Around You",
-                    naviScreen: '/aroundU',
+                    placesList: placesList,
                   ),
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return PlaceCardSqr(
-                          name: placesList[index]['name'],
-                          img_url: placesList[index]['image'],
-                          prov: placesList[index]['province'],
-                          desc: placesList[index]['description'],
-                        );
-                      },
-                      itemCount: 3,
-                      scrollDirection: Axis.horizontal,
-                    ),
+                    child: ListViewBuilderMethod(),
                   ),
-                  CategoryButtons(
+                  CategoryBtnAllPlaces(
                     title: "All Places",
-                    naviScreen: '/allPlaces',
+                    placesList: placesList,
                   ),
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return PlaceCardSqr(
-                          name: placesList[index]['name'],
-                          img_url: placesList[index]['image'],
-                          prov: placesList[index]['province'],
-                          desc: placesList[index]['description'],
-                        );
-                      },
-                      itemCount: 3,
-                      scrollDirection: Axis.horizontal,
-                    ),
+                    child: ListViewBuilderMethod(),
+
+                    //   ListView.builder(
+                    //     itemBuilder: (context, index) {
+                    //       return PlaceCardSqr(
+                    //         name: placesList[index]['name'],
+                    //         img_url: placesList[index]['image'],
+                    //         prov: placesList[index]['province'],
+                    //         desc: placesList[index]['description'],
+                    //       );
+                    //     },
+                    //     itemCount: 3,
+                    //     scrollDirection: Axis.horizontal,
+                    //   ),
+                    // ),
+                    //SizedBox(height: 0.03 * size.height),
                   ),
-                  //SizedBox(height: 0.03 * size.height),
                 ],
               ),
             ),
@@ -118,6 +110,21 @@ class _HomeScreenState extends State<HomeScreen> {
           size: 0.03 * size.height,
         ),
       ),
+    );
+  }
+
+  ListView ListViewBuilderMethod() {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return PlaceCardSqr(
+          name: placesList[index]['name'],
+          img_url: placesList[index]['image'],
+          prov: placesList[index]['province'],
+          desc: placesList[index]['description'],
+        );
+      },
+      itemCount: 3,
+      scrollDirection: Axis.horizontal,
     );
   }
 }
