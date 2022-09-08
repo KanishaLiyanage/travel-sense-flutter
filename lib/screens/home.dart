@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'package:dio/dio.dart';
@@ -15,15 +17,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var url = "";
-  var items = [];
+  var url = "https://travel-sense-app-rest-api.herokuapp.com";
+  var placesList = [];
+  var place = {};
 
   Dio dio = Dio();
 
   Future<void> getData() async {
     try {
       var response = await dio.get('$url/user/home');
-      print(response.data);
+      placesList = response.data;
+      var placesListLength = (placesList.length).toString();
+      //print(placesList[1]);
+      // print("Items Length is: " + placesListLength);
+      // place = placesList[1];
+      // print(place);
+      // print(place['name']);
     } catch (e) {
       print(e);
     }
@@ -33,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getData();
   }
 
   @override
@@ -63,9 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 0.45 * size.height,
                     child: ListView.builder(
                       itemBuilder: (context, index) {
-                        return PlaceCardSqr();
+                        return PlaceCardSqr(
+                          name: placesList[index]['name'],
+                          img_url: placesList[index]['image'],
+                          prov: placesList[index]['province'],
+                          desc: placesList[index]['description'],
+                        );
                       },
-                      itemCount: 5,
+                      itemCount: 3,
                       scrollDirection: Axis.horizontal,
                     ),
                   ),
@@ -78,9 +93,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 0.45 * size.height,
                     child: ListView.builder(
                       itemBuilder: (context, index) {
-                        return PlaceCardSqr();
+                        return PlaceCardSqr(
+                          name: placesList[index]['name'],
+                          img_url: placesList[index]['image'],
+                          prov: placesList[index]['province'],
+                          desc: placesList[index]['description'],
+                        );
                       },
-                      itemCount: 5,
+                      itemCount: 3,
                       scrollDirection: Axis.horizontal,
                     ),
                   ),
