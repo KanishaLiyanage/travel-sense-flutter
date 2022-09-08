@@ -5,9 +5,11 @@ import '../widgets/placeCardRect.dart';
 
 class AllPlacesScreen extends StatelessWidget {
   var placesList;
+  final Function getAllPlaces;
 
   AllPlacesScreen({
     required this.placesList,
+    required this.getAllPlaces,
   });
 
   @override
@@ -19,15 +21,26 @@ class AllPlacesScreen extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 0.015 * size.height),
         // implement GridView.builder
-        child: ListView.builder(
-          itemCount: placesList.length,
-          itemBuilder: (context, index) {
-            return PlaceCardRect(
-              name: placesList[index]['name'],
-              img_url: placesList[index]['image'],
-              prov: placesList[index]['province'],
-              desc: placesList[index]['description'],
-            );
+        child: FutureBuilder(
+          future: getAllPlaces(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  return PlaceCardRect(
+                    name: placesList[index]['name'],
+                    img_url: placesList[index]['image'],
+                    prov: placesList[index]['province'],
+                    desc: placesList[index]['description'],
+                  );
+                },
+                itemCount: placesList.length,
+              );
+            }
           },
         ),
       ),

@@ -5,9 +5,11 @@ import '../widgets/placeCardRect.dart';
 
 class AroundYouScreen extends StatelessWidget {
   var placesList;
+  final Function getAroundPlaces;
 
   AroundYouScreen({
     required this.placesList,
+    required this.getAroundPlaces,
   });
 
   @override
@@ -18,15 +20,26 @@ class AroundYouScreen extends StatelessWidget {
       appBar: CustomAppBar(size, title: "Places Around You"),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 0.015 * size.height),
-        child: ListView.builder(
-          itemCount: placesList.length,
-          itemBuilder: (context, index) {
-            return PlaceCardRect(
-              name: placesList[index]['name'],
-              img_url: placesList[index]['image'],
-              prov: placesList[index]['province'],
-              desc: placesList[index]['description'],
-            );
+        child: FutureBuilder(
+          future: getAroundPlaces(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  return PlaceCardRect(
+                    name: placesList[index]['name'],
+                    img_url: placesList[index]['image'],
+                    prov: placesList[index]['province'],
+                    desc: placesList[index]['description'],
+                  );
+                },
+                itemCount: placesList.length,
+              );
+            }
           },
         ),
       ),

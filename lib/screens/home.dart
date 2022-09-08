@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
-import '../widgets/catBtnAllPlaces.dart';
-import '../widgets/catBtnAroundU.dart';
 import '../widgets/placeCardSqr.dart';
 import '../widgets/searchBar.dart';
 import '../widgets/weatherStatus.dart';
 import '../widgets/header.dart';
+import 'allPlaces.dart';
+import 'aroundYou.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -66,9 +66,61 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 0.02 * size.height),
-                  CategoryBtnAroundU(
-                    title: "Places Around You",
-                    placesList: placesList,
+                  // CategoryBtnAroundU(
+                  //   title: "Places Around You",
+                  //   placesList: placesList,
+                  //   getPlaces: getData,
+                  // ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 0.1 * size.width,
+                      right: 0.1 * size.width,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          //width: 0.25 * size.width,
+                          padding: EdgeInsets.all(0.01 * size.height),
+                          child: Text(
+                            "Places Around You",
+                            style: TextStyle(
+                              fontSize: 0.013 * size.height,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF018ABD),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return AroundYouScreen(
+                                    placesList: placesList,
+                                    getAroundPlaces: getData,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "View more",
+                            style: TextStyle(
+                              fontSize: 0.015 * size.height,
+                              color: Color(0xFF018ABD),
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
@@ -97,9 +149,56 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   ),
-                  CategoryBtnAllPlaces(
-                    title: "All Places",
-                    placesList: placesList,
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 0.1 * size.width,
+                      right: 0.1 * size.width,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          //width: 0.25 * size.width,
+                          padding: EdgeInsets.all(0.01 * size.height),
+                          child: Text(
+                            "All Places",
+                            style: TextStyle(
+                              fontSize: 0.013 * size.height,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF018ABD),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return AllPlacesScreen(
+                                    placesList: placesList,
+                                    getAllPlaces: getData,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          child: Text(
+                            "View more",
+                            style: TextStyle(
+                              fontSize: 0.015 * size.height,
+                              color: Color(0xFF018ABD),
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
