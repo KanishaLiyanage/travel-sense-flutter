@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Dio dio = Dio();
 
-  Future<void> getData() async {
+  Future getData() async {
     try {
       var response = await dio.get('$url/user/home');
       placesList = response.data;
@@ -32,7 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
       // place = placesList[1];
       // print(place);
       // print(place['name']);
-      print('button clicked!');
+      // print(placesList[1]['name']);
+      // print('button clicked!');
+      return placesList;
     } catch (e) {
       print(e);
     }
@@ -71,7 +73,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
-                    child: ListViewBuilderMethod(),
+                    child: FutureBuilder(
+                      future: getData(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ListView.builder(
+                            itemBuilder: (context, index) {
+                              return PlaceCardSqr(
+                                name: placesList[index]['name'],
+                                img_url: placesList[index]['image'],
+                                prov: placesList[index]['province'],
+                                desc: placesList[index]['description'],
+                              );
+                            },
+                            itemCount: 3,
+                            scrollDirection: Axis.horizontal,
+                          );
+                        }
+                      },
+                    ),
                   ),
                   CategoryBtnAllPlaces(
                     title: "All Places",
@@ -80,23 +104,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
-                    child: ListViewBuilderMethod(),
-
-                    //   ListView.builder(
-                    //     itemBuilder: (context, index) {
-                    //       return PlaceCardSqr(
-                    //         name: placesList[index]['name'],
-                    //         img_url: placesList[index]['image'],
-                    //         prov: placesList[index]['province'],
-                    //         desc: placesList[index]['description'],
-                    //       );
-                    //     },
-                    //     itemCount: 3,
-                    //     scrollDirection: Axis.horizontal,
-                    //   ),
-                    // ),
-                    //SizedBox(height: 0.03 * size.height),
+                    child: FutureBuilder(
+                      future: getData(),
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return ListView.builder(
+                            itemBuilder: (context, index) {
+                              return PlaceCardSqr(
+                                name: placesList[index]['name'],
+                                img_url: placesList[index]['image'],
+                                prov: placesList[index]['province'],
+                                desc: placesList[index]['description'],
+                              );
+                            },
+                            itemCount: 3,
+                            scrollDirection: Axis.horizontal,
+                          );
+                        }
+                      },
+                    ),
                   ),
+                  //SizedBox(height: 0.03 * size.height),
                 ],
               ),
             ),
@@ -110,21 +142,6 @@ class _HomeScreenState extends State<HomeScreen> {
           size: 0.03 * size.height,
         ),
       ),
-    );
-  }
-
-  ListView ListViewBuilderMethod() {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return PlaceCardSqr(
-          name: placesList[index]['name'],
-          img_url: placesList[index]['image'],
-          prov: placesList[index]['province'],
-          desc: placesList[index]['description'],
-        );
-      },
-      itemCount: 3,
-      scrollDirection: Axis.horizontal,
     );
   }
 }

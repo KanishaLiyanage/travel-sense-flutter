@@ -20,7 +20,7 @@ class AllPlacesScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 0.015 * size.height),
         // implement GridView.builder
         child: ListView.builder(
-          itemCount: 10,
+          itemCount: placesList.length,
           itemBuilder: (context, index) {
             return PlaceCardRect(
               name: placesList[index]['name'],
