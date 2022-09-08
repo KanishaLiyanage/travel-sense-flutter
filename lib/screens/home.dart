@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import '../services/location.dart';
 
 import '../widgets/placeCardSqr.dart';
 import '../widgets/searchBar.dart';
@@ -17,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var url = "https://travel-sense-app-rest-api.herokuapp.com";
+  var lat;
+  var lon;
   var placesList = [];
   var place = {};
 
@@ -25,16 +28,52 @@ class _HomeScreenState extends State<HomeScreen> {
   Future getData() async {
     try {
       var response = await dio.get('$url/user/home');
-      placesList = response.data;
-      //var placesListLength = (placesList.length).toString();
-      //print(placesList[1]);
-      // print("Items Length is: " + placesListLength);
-      // place = placesList[1];
-      // print(place);
-      // print(place['name']);
-      // print(placesList[1]['name']);
-      // print('button clicked!');
-      return placesList;
+      if (response.statusCode == 200) {
+        placesList = response.data;
+        //var placesListLength = (placesList.length).toString();
+        //print(placesList[1]);
+        //print(placesList);
+        // print("Items Length is: " + placesListLength);
+        // place = placesList[1];
+        // print(place);
+        // print(place['name']);
+        // print(placesList[1]['name']);
+        print('button clicked!');
+        return placesList;
+      } else {
+        print("Server not responeded!");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future getLocation() async {
+    try {
+      Location location = Location();
+      await location.getCurrentLocation();
+
+      lat = location.latitude;
+      lon = location.longitude;
+
+      print(lat);
+      print(lon);
+
+      Future getAroundPlaces() async {
+        var coordinates = ({"latitude": lat, "longitude": lon});
+
+        try {
+          var aroundResponse =
+              await dio.post('$url/user/aroundPlaces', data: coordinates);
+          if (aroundResponse.statusCode == 201) {
+            print("Data Posted.");
+          } else {
+            print("Server not responeded!");
+          }
+        } catch (e) {
+          print(e);
+        }
+      }
     } catch (e) {
       print(e);
     }
@@ -138,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return PlaceCardSqr(
                                 name: placesList[index]['name'],
                                 img_url: placesList[index]['image'],
-                                prov: placesList[index]['province'],
+                                district: placesList[index]['district'],
                                 desc: placesList[index]['description'],
                               );
                             },
@@ -216,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               return PlaceCardSqr(
                                 name: placesList[index]['name'],
                                 img_url: placesList[index]['image'],
-                                prov: placesList[index]['province'],
+                                district: placesList[index]['district'],
                                 desc: placesList[index]['description'],
                               );
                             },
@@ -235,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: getData,
+        onPressed: getLocation,
         child: Icon(
           Icons.refresh_rounded,
           size: 0.03 * size.height,

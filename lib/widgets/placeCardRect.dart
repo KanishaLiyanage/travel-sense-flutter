@@ -4,13 +4,13 @@ import 'package:travel_sense/screens/placeInfo.dart';
 class PlaceCardRect extends StatelessWidget {
   String name;
   String img_url;
-  String prov;
+  String district;
   String desc;
 
   PlaceCardRect({
     required this.name,
     required this.img_url,
-    required this.prov,
+    required this.district,
     required this.desc,
   });
 
@@ -26,7 +26,7 @@ class PlaceCardRect extends StatelessWidget {
                 img: img_url,
                 placeTitle: name,
                 description: desc,
-                province: prov,
+                district: district,
               );
             },
           ),

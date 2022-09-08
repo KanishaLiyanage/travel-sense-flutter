@@ -6,13 +6,13 @@ class PlaceInfo extends StatelessWidget {
   String img;
   String placeTitle;
   String description;
-  String province;
+  String district;
 
   PlaceInfo({
     required this.img,
     required this.placeTitle,
     required this.description,
-    required this.province,
+    required this.district,
   });
 
   @override
@@ -89,7 +89,7 @@ class PlaceInfo extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  province,
+                  district,
                   style: TextStyle(
                     color: Color(0xFF1A2239),
                     fontWeight: FontWeight.w400,

@@ -34,7 +34,7 @@ class AllPlacesScreen extends StatelessWidget {
                   return PlaceCardRect(
                     name: placesList[index]['name'],
                     img_url: placesList[index]['image'],
-                    prov: placesList[index]['province'],
+                    district: placesList[index]['district'],
                     desc: placesList[index]['description'],
                   );
                 },
