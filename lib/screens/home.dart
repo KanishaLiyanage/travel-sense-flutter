@@ -21,7 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
   var lat;
   var lon;
   var placesList = [];
-  var place = {};
+  var placesAround;
+  var placesAroundList;
+  var nearestCity;
 
   Dio dio = Dio();
 
@@ -59,20 +61,42 @@ class _HomeScreenState extends State<HomeScreen> {
       print(lat);
       print(lon);
 
-      Future getAroundPlaces() async {
-        var coordinates = ({"latitude": lat, "longitude": lon});
+      getAroundPlaces(lat, lon);
+    } catch (e) {
+      print(e);
+    }
+  }
 
-        try {
-          var aroundResponse =
-              await dio.post('$url/user/aroundPlaces', data: coordinates);
-          if (aroundResponse.statusCode == 201) {
-            print("Data Posted.");
-          } else {
-            print("Server not responeded!");
+  Future getAroundPlaces(lat, lon) async {
+    var coordinates = ({"latitude": lat, "longitude": lon});
+
+    try {
+      var aroundResponse =
+          await dio.post('$url/user/aroundPlaces', data: coordinates);
+      if (aroundResponse.statusCode == 201) {
+        placesAround = aroundResponse.data;
+        print(placesAround);
+        nearestCity = placesAround['nearest city'];
+        print(nearestCity);
+        //print(placesList);
+        //print(placesList[0]['name']);
+        var length = placesList.length;
+        print(length);
+        for (int i = 0; i <= length; i++) {
+          if (nearestCity == placesList[i]['district']) {
+            var arr = {
+              "name": placesList[i]['name'],
+              "image": placesList[i]['image'],
+              "district": placesList[i]['district'],
+              "desccription": placesList[i]['description'],
+            };
+            print(placesList[i]['name']);
           }
-        } catch (e) {
-          print(e);
         }
+        print(placesAroundList);
+        return placesAroundList;
+      } else {
+        print("Server not responeded!");
       }
     } catch (e) {
       print(e);
@@ -84,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     getData();
+    getLocation();
   }
 
   @override
@@ -165,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
                     child: FutureBuilder(
-                      future: getData(),
+                      future: getLocation(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -175,10 +200,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           return ListView.builder(
                             itemBuilder: (context, index) {
                               return PlaceCardSqr(
-                                name: placesList[index]['name'],
-                                img_url: placesList[index]['image'],
-                                district: placesList[index]['district'],
-                                desc: placesList[index]['description'],
+                                name: placesAroundList[index]['name'],
+                                img_url: placesAroundList[index]['image'],
+                                district: placesAroundList[index]['district'],
+                                desc: placesAroundList[index]['description'],
                               );
                             },
                             itemCount: 3,
