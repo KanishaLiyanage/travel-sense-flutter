@@ -36,6 +36,7 @@ class Header extends StatelessWidget {
               icon: Icon(
                 Icons.notifications_active_rounded,
                 size: 0.04 * size.height,
+                color: Color(0xFF004581),
               )),
         ],
       ),

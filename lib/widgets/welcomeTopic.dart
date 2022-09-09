@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WeatherStatusCard extends StatelessWidget {
+class WelcomeTopic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
