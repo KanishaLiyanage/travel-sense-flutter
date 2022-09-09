@@ -26,7 +26,7 @@ class PlaceInfo extends StatelessWidget {
             children: <Widget>[
               Container(
                 width: double.infinity,
-                height: 0.45 * size.height,
+                height: 0.43 * size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -59,13 +59,24 @@ class PlaceInfo extends StatelessWidget {
               top: 0.05 * size.height,
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  placeTitle,
-                  style: TextStyle(
-                    color: Color(0xFF004581),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 0.03 * size.height,
+                Expanded(
+                  child: Text(
+                    placeTitle,
+                    style: TextStyle(
+                      color: Color(0xFF004581),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 0.065 * size.width,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.star_border_rounded,
+                    color: Color(0xFF018ABD),
+                    size: 0.04 * size.height,
                   ),
                 ),
               ],
@@ -75,6 +86,7 @@ class PlaceInfo extends StatelessWidget {
             margin: EdgeInsets.only(
               left: 0.06 * size.width,
               right: 0.1 * size.width,
+              top: 0.01 * size.height,
             ),
             child: Row(
               children: [

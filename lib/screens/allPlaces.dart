@@ -16,7 +16,10 @@ class AllPlacesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBar(size, title: "All Places in Sri Lanka"),
+      appBar: CustomAppBar(
+        size,
+        title: "All Places (" + placesList.length.toString() + ")",
+      ),
       backgroundColor: Color(0xFFDDE8F0),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 0.015 * size.height),

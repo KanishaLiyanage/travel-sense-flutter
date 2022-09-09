@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/weatherStatus.dart';
+
 class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,15 @@ class Header extends StatelessWidget {
           ),
           Spacer(),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return WeatherStatusScreen();
+                    },
+                  ),
+                );
+              },
               icon: Icon(
                 Icons.notifications_active_rounded,
                 size: 0.04 * size.height,

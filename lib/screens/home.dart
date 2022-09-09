@@ -54,10 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Location location = Location();
     await location.getCurrentLocation();
 
-    // latitude = location.latitude;
-    // longitude = location.longitude;
-    latitude = 6.9592494181299;
-    longitude = 79.9537587048892;
+    latitude = location.latitude;
+    longitude = location.longitude;
+    // latitude = 7.465594251760848;
+    // longitude = 80.04799206741393;
 
     var geocoderURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
         longitude.toString() +
@@ -146,6 +146,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               color: Color(0xFF018ABD),
                               borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
                             ),
                           ),
                           TextButton(
@@ -162,7 +171,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                             child: Text(
-                              "View more",
+                              "View more (" +
+                                  placesAroundList.length.toString() +
+                                  ")",
                               style: TextStyle(
                                 fontSize: 0.015 * size.height,
                                 color: Color(0xFF018ABD),
@@ -229,6 +240,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               color: Color(0xFF018ABD),
                               borderRadius: BorderRadius.circular(25),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
                             ),
                           ),
                           TextButton(
@@ -245,7 +265,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                             child: Text(
-                              "View more",
+                              "View more (" +
+                                  placesList.length.toString() +
+                                  ")",
                               style: TextStyle(
                                 fontSize: 0.015 * size.height,
                                 color: Color(0xFF018ABD),

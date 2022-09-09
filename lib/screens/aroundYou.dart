@@ -17,7 +17,10 @@ class AroundYouScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xFFDDE8F0),
-      appBar: CustomAppBar(size, title: "Places Around You"),
+      appBar: CustomAppBar(
+        size,
+        title: "Sensed Places (" + placesList.length.toString() + ")",
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 0.015 * size.height),
         child: FutureBuilder(

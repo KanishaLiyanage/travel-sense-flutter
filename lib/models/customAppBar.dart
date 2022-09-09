@@ -17,7 +17,7 @@ AppBar CustomAppBar(Size size, {required String title}) {
       title,
       style: TextStyle(
         color: Color(0xFF004581),
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         fontSize: 0.025 * size.height,
       ),
     ),
