@@ -20,10 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   var url = "https://travel-sense-app-rest-api.herokuapp.com";
   var geoCoderKey =
       "pk.eyJ1Ijoia2FuaXNoYWwiLCJhIjoiY2w2aXluanA5MHNnejNjcGRvYmZ6ZXViMyJ9.ugUAXJwneE9q_ifKtsfYiQ";
-  var lat;
-  var lon;
+  var latitude;
+  var longitude;
   var placesList = [];
-  var placesAround;
   var placesAroundList = [];
   var city;
 
@@ -51,49 +50,43 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future getLocation() async {
+  Future getAroundPlaces() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+
+    latitude = location.latitude;
+    longitude = location.longitude;
+
+    var geocoderURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+        longitude.toString() +
+        "," +
+        latitude.toString() +
+        ".json?country=lk&limit=1&types=region&access_token=" +
+        geoCoderKey;
+
     try {
-      Location location = Location();
-      await location.getCurrentLocation();
-
-      lat = location.latitude;
-      lon = location.longitude;
-
-      // lat = 6.9592494181299;
-      // lon = 79.9537587048892;
-
-      //print(lat);
-      //print(lon);
-
-      var geocoderURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-          lon.toString() +
-          "," +
-          lat.toString() +
-          ".json?country=lk&limit=1&types=region&access_token=" +
-          geoCoderKey;
       var geoResponse = await dio.get('$geocoderURL');
+
       if (geoResponse.statusCode == 200) {
         city = await geoResponse.data['features'][0]['text'];
-        getAroundPlaces(city);
-      } else {
-        print("Server not responeded!");
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 
-  Future getAroundPlaces(city) async {
-    var nearestCity = ({"nearestCity": city.toString()});
+        var nearestCity = ({"nearestCity": city});
 
-    try {
-      var aroundResponse =
-          await dio.post('$url/user/home/placesAroundYou', data: nearestCity);
-      if (aroundResponse.statusCode == 201) {
-        placesAroundList = aroundResponse.data;
-        //print("Nearest City: " + nearestCity.toString());
-        //print(placesAroundList);
-        return placesAroundList;
+        try {
+          var aroundResponse = await dio.post('$url/user/home/placesAroundYou',
+              data: nearestCity);
+
+          if (aroundResponse.statusCode == 201) {
+            placesAroundList = aroundResponse.data;
+            print("Nearest City: " + nearestCity.toString());
+            //print(placesAroundList);
+            return placesAroundList;
+          } else {
+            print("Server not responeded!");
+          }
+        } catch (e) {
+          print(e);
+        }
       } else {
         print("Server not responeded!");
       }
@@ -104,11 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
-    getLocation();
-    getAroundPlaces(city);
+    getAroundPlaces();
   }
 
   @override
@@ -130,11 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   SizedBox(height: 0.02 * size.height),
-                  // CategoryBtnAroundU(
-                  //   title: "Places Around You",
-                  //   placesList: placesList,
-                  //   getPlaces: getData,
-                  // ),
                   Container(
                     margin: EdgeInsets.only(
                       left: 0.1 * size.width,
@@ -144,7 +130,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          //width: 0.25 * size.width,
                           padding: EdgeInsets.all(0.01 * size.height),
                           child: Text(
                             "Places Around You",
@@ -190,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
                     child: FutureBuilder(
-                      future: getData(),
+                      future: getAroundPlaces(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -299,7 +284,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: getLocation,
+        onPressed: getAroundPlaces,
         child: Icon(
           Icons.refresh_rounded,
           size: 0.03 * size.height,
