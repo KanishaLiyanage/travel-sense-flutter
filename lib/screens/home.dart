@@ -18,12 +18,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var url = "https://travel-sense-app-rest-api.herokuapp.com";
+  var geoCoderKey =
+      "pk.eyJ1Ijoia2FuaXNoYWwiLCJhIjoiY2w2aXluanA5MHNnejNjcGRvYmZ6ZXViMyJ9.ugUAXJwneE9q_ifKtsfYiQ";
   var lat;
   var lon;
   var placesList = [];
   var placesAround;
-  var placesAroundList;
-  var nearestCity;
+  var placesAroundList = [];
+  var city;
 
   Dio dio = Dio();
 
@@ -40,7 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
         // print(place);
         // print(place['name']);
         // print(placesList[1]['name']);
-        print('button clicked!');
         return placesList;
       } else {
         print("Server not responeded!");
@@ -58,42 +59,40 @@ class _HomeScreenState extends State<HomeScreen> {
       lat = location.latitude;
       lon = location.longitude;
 
-      print(lat);
-      print(lon);
+      // lat = 6.9592494181299;
+      // lon = 79.9537587048892;
 
-      getAroundPlaces(lat, lon);
+      //print(lat);
+      //print(lon);
+
+      var geocoderURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+          lon.toString() +
+          "," +
+          lat.toString() +
+          ".json?country=lk&limit=1&types=region&access_token=" +
+          geoCoderKey;
+      var geoResponse = await dio.get('$geocoderURL');
+      if (geoResponse.statusCode == 200) {
+        city = await geoResponse.data['features'][0]['text'];
+        getAroundPlaces(city);
+      } else {
+        print("Server not responeded!");
+      }
     } catch (e) {
       print(e);
     }
   }
 
-  Future getAroundPlaces(lat, lon) async {
-    var coordinates = ({"latitude": lat, "longitude": lon});
+  Future getAroundPlaces(city) async {
+    var nearestCity = ({"nearestCity": city.toString()});
 
     try {
       var aroundResponse =
-          await dio.post('$url/user/aroundPlaces', data: coordinates);
+          await dio.post('$url/user/home/placesAroundYou', data: nearestCity);
       if (aroundResponse.statusCode == 201) {
-        placesAround = aroundResponse.data;
-        print(placesAround);
-        nearestCity = placesAround['nearest city'];
-        print(nearestCity);
-        //print(placesList);
-        //print(placesList[0]['name']);
-        var length = placesList.length;
-        print(length);
-        for (int i = 0; i <= length; i++) {
-          if (nearestCity == placesList[i]['district']) {
-            var arr = {
-              "name": placesList[i]['name'],
-              "image": placesList[i]['image'],
-              "district": placesList[i]['district'],
-              "desccription": placesList[i]['description'],
-            };
-            print(placesList[i]['name']);
-          }
-        }
-        print(placesAroundList);
+        placesAroundList = aroundResponse.data;
+        //print("Nearest City: " + nearestCity.toString());
+        //print(placesAroundList);
         return placesAroundList;
       } else {
         print("Server not responeded!");
@@ -109,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getData();
     getLocation();
+    getAroundPlaces(city);
   }
 
   @override
@@ -190,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.all(0.03 * size.width),
                     height: 0.45 * size.height,
                     child: FutureBuilder(
-                      future: getLocation(),
+                      future: getData(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Center(
@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 desc: placesAroundList[index]['description'],
                               );
                             },
-                            itemCount: 3,
+                            itemCount: placesAroundList.length,
                             scrollDirection: Axis.horizontal,
                           );
                         }
