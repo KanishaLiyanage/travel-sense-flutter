@@ -7,6 +7,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFDDE8F0),
+      body: Container(),
     );
   }
 }
