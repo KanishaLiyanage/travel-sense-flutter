@@ -10,6 +10,7 @@ class WeatherStatusScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xFFDDE8F0),
+      body: Container(),
     );
   }
 }
