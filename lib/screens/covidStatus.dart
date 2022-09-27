@@ -8,9 +8,6 @@ class CovidStatusScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFFDDE8F0),
       body: Container(
-        child: Column(
-          children: [],
-        ),
       ),
     );
   }
