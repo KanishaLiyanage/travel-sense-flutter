@@ -86,7 +86,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        top: 0.04 * size.width,
+                        top: 0.08 * size.width,
                         bottom: 0.04 * size.width,
                         right: 0.04 * size.width,
                       ),
@@ -94,15 +94,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Colombo",
+                            city,
                             style: TextStyle(
                               color: Color(0xFFDDE8F0),
                               fontWeight: FontWeight.w600,
-                              fontSize: 0.035 * size.height,
+                              fontSize: 0.06 * size.width,
                             ),
                           ),
                           Text(
-                            "Heavy Rain",
+                            cond,
                             style: TextStyle(
                               color: Color(0xFFDDE8F0),
                               fontWeight: FontWeight.w600,
@@ -110,7 +110,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                             ),
                           ),
                           Text(
-                            "18 C",
+                            temp.toString() + " C",
                             style: TextStyle(
                               color: Color(0xFFDDE8F0),
                               fontWeight: FontWeight.w600,
