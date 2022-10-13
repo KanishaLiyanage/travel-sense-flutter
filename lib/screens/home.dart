@@ -54,10 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Location location = Location();
     await location.getCurrentLocation();
 
-    latitude = location.latitude;
-    longitude = location.longitude;
-    // latitude = 7.465594251760848;
-    // longitude = 80.04799206741393;
+    // latitude = location.latitude;
+    // longitude = location.longitude;
+    latitude = 7.465594251760848;
+    longitude = 80.04799206741393;
 
     var geocoderURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
         longitude.toString() +
