@@ -1,18 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 import '../models/customAppBar.dart';
 import '../services/location.dart';
 
-class NotificationsScreen extends StatelessWidget {
+class NotificationsScreen extends StatefulWidget {
+  @override
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
+}
+
+class _NotificationsScreenState extends State<NotificationsScreen> {
   var lon;
   var lat;
+  var apiKey = "5f39ac098bfb1d20edb29bbc65746da8";
+  var city;
+  var temp;
+  var cond;
 
-  Future getLocation() async {
+  Dio dio = Dio();
+
+  Future<void> getWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
 
     lat = location.latitude;
     lon = location.longitude;
+    print(lat);
+    print(lon);
+    var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" +
+        lat.toString() +
+        "&lon=" +
+        lon.toString() +
+        "&appid=" +
+        apiKey +
+        "&units=metric";
+
+    try {
+      var getWeather = await dio.get('$weatherUrl');
+
+      if (getWeather.statusCode == 200) {
+        city = getWeather.data['name'];
+        temp = getWeather.data['main']['temp'];
+        cond = getWeather.data['weather'][0]['description'];
+        print(city);
+        print(temp);
+        print(cond);
+      } else {
+        print("Server error!");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getWeather();
   }
 
   @override
