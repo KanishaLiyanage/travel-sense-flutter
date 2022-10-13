@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../screens/weatherStatus.dart';
+import '../screens/notifications.dart';
 
 class Header extends StatelessWidget {
   @override
@@ -38,7 +38,7 @@ class Header extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return WeatherStatusScreen();
+                      return NotificationsScreen();
                     },
                   ),
                 );
