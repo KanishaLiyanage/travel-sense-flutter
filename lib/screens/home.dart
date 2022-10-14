@@ -106,7 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
       if (getCovidData.statusCode == 200) {
         covidData = getCovidData.data;
         today = covidData['data']['local_new_cases'];
-        return today;
+        if (today > 100) {
+          return today;
+        }
       } else {
         print("Server Error!");
       }
