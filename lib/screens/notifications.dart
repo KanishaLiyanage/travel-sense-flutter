@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 import '../models/customAppBar.dart';
 import '../services/location.dart';
+import '../widgets/weatherCard.dart';
 
 class NotificationsScreen extends StatefulWidget {
   @override
@@ -14,6 +15,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   var lat;
   var apiKey = "5f39ac098bfb1d20edb29bbc65746da8";
   var weatherData;
+  var covidData;
+  var updatedTime;
+  var todayCases;
+  var activeCases;
 
   Dio dio = Dio();
 
@@ -21,8 +26,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     Location location = Location();
     await location.getCurrentLocation();
 
-    lat = location.latitude;
-    lon = location.longitude;
+    // lat = location.latitude;
+    // lon = location.longitude;
+
+    lat = 7.465594251760848;
+    lon = 80.04799206741393;
+
     print(lat);
     print(lon);
     var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" +
@@ -47,10 +56,26 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     }
   }
 
+  Future getCovid() async {
+    var covidUrl = "https://www.hpb.health.gov.lk/api/get-current-statistical";
+
+    try {
+      var getCovidData = await dio.get('$covidUrl');
+
+      if (getCovidData.statusCode == 200) {
+        covidData = getCovidData.data;
+        print(covidData);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getWeather();
+    getCovid();
   }
 
   @override
@@ -79,81 +104,25 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   }
                 },
               ),
-              Container(
-                margin: EdgeInsets.all(0.04 * size.width),
-                height: 0.2 * size.height,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(25),
-                ),
-              ),
+              CovidDataCard(),
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Container WeatherCard(Size size, weatherData) {
-    var city = weatherData['name'];
-    var temp = weatherData['main']['temp'];
-    var cond = weatherData['weather'][0]['description'];
-
+class CovidDataCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-      child: Row(
-        children: [
-          Container(
-            height: 0.3 * size.width,
-            width: 0.3 * size.width,
-            margin: EdgeInsets.all(0.04 * size.width),
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              top: 0.08 * size.width,
-              bottom: 0.04 * size.width,
-              right: 0.04 * size.width,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  city,
-                  style: TextStyle(
-                    color: Color(0xFFDDE8F0),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 0.06 * size.width,
-                  ),
-                ),
-                Text(
-                  cond,
-                  style: TextStyle(
-                    color: Color(0xFFDDE8F0),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 0.025 * size.height,
-                  ),
-                ),
-                Text(
-                  temp.toString() + " °C",
-                  style: TextStyle(
-                    color: Color(0xFFDDE8F0),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 0.025 * size.height,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
       margin: EdgeInsets.all(0.04 * size.width),
       height: 0.2 * size.height,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.amber,
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(25),
       ),
     );
