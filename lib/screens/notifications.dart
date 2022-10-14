@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 import '../models/customAppBar.dart';
 import '../services/location.dart';
+import '../widgets/covidCard.dart';
 import '../widgets/weatherCard.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -16,9 +17,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   var apiKey = "5f39ac098bfb1d20edb29bbc65746da8";
   var weatherData;
   var covidData;
-  var updatedTime;
-  var todayCases;
-  var activeCases;
 
   Dio dio = Dio();
 
@@ -32,8 +30,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     lat = 7.465594251760848;
     lon = 80.04799206741393;
 
-    print(lat);
-    print(lon);
     var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" +
         lat.toString() +
         "&lon=" +
@@ -64,7 +60,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
       if (getCovidData.statusCode == 200) {
         covidData = getCovidData.data;
-        print(covidData);
+        return covidData;
       }
     } catch (e) {
       print(e);
@@ -104,26 +100,26 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   }
                 },
               ),
-              CovidDataCard(),
+              FutureBuilder(
+                future: getCovid(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return CovidDataCard(
+                      dateTime: covidData['data']['update_date_time'],
+                      active: covidData['data']['local_active_cases'],
+                      today: covidData['data']['local_new_cases'],
+                      deaths: covidData['data']['local_new_deaths'],
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class CovidDataCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.all(0.04 * size.width),
-      height: 0.2 * size.height,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(25),
       ),
     );
   }
