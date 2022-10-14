@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import '../screens/notifications.dart';
 
 class Header extends StatelessWidget {
+  Function todayCases;
+
+  Header({
+    required this.todayCases,
+  });
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,20 +40,33 @@ class Header extends StatelessWidget {
           ),
           Spacer(),
           IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return NotificationsScreen();
-                    },
-                  ),
-                );
-              },
-              icon: Icon(
-                Icons.notifications_active_rounded,
-                size: 0.04 * size.height,
-                color: Color(0xFF004581),
-              )),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return NotificationsScreen();
+                  },
+                ),
+              );
+            },
+            icon: FutureBuilder(
+                future: todayCases(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Icon(
+                      Icons.notifications_active_rounded,
+                      size: 0.04 * size.height,
+                      color: Color(0xFF004581),
+                    );
+                  } else {
+                    return Icon(
+                      Icons.notifications_active_rounded,
+                      size: 0.04 * size.height,
+                      color: Colors.red,
+                    );
+                  }
+                }),
+          ),
         ],
       ),
     );

@@ -25,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   var placesList = [];
   var placesAroundList = [];
   var city;
+  var covidData;
+  var today;
 
   Dio dio = Dio();
 
@@ -80,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (aroundResponse.statusCode == 201) {
             placesAroundList = aroundResponse.data;
-            print("Nearest City: " + nearestCity.toString());
+            //print("Nearest City: " + nearestCity.toString());
             //print(placesAroundList);
             return placesAroundList;
           } else {
@@ -97,11 +99,28 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future getCovid() async {
+    var covidUrl = "https://www.hpb.health.gov.lk/api/get-current-statistical";
+    try {
+      var getCovidData = await dio.get("$covidUrl");
+      if (getCovidData.statusCode == 200) {
+        covidData = getCovidData.data;
+        today = covidData['data']['local_new_cases'];
+        return today;
+      } else {
+        print("Server Error!");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
     getAroundPlaces();
+    getCovid();
   }
 
   @override
@@ -112,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Header(),
+            Header(todayCases: getCovid),
             SizedBox(height: 0.04 * size.height),
             WelcomeTopic(),
             SizedBox(height: 0.04 * size.height),
