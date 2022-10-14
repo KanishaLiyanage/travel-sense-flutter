@@ -137,7 +137,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                 ),
                 Text(
-                  temp.toString() + " C",
+                  temp.toString() + " °C",
                   style: TextStyle(
                     color: Color(0xFFDDE8F0),
                     fontWeight: FontWeight.w600,
