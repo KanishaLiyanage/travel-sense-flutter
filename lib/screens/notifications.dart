@@ -13,13 +13,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   var lon;
   var lat;
   var apiKey = "5f39ac098bfb1d20edb29bbc65746da8";
-  var city;
-  var temp;
-  var cond;
+  var weatherData;
 
   Dio dio = Dio();
 
-  Future<void> getWeather() async {
+  Future getWeather() async {
     Location location = Location();
     await location.getCurrentLocation();
 
@@ -39,12 +37,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       var getWeather = await dio.get('$weatherUrl');
 
       if (getWeather.statusCode == 200) {
-        city = getWeather.data['name'];
-        temp = getWeather.data['main']['temp'];
-        cond = getWeather.data['weather'][0]['description'];
-        print(city);
-        print(temp);
-        print(cond);
+        weatherData = getWeather.data;
+        return weatherData;
       } else {
         print("Server error!");
       }
@@ -73,62 +67,17 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                child: Row(
-                  children: [
-                    Container(
-                      height: 0.3 * size.width,
-                      width: 0.3 * size.width,
-                      margin: EdgeInsets.all(0.04 * size.width),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: 0.08 * size.width,
-                        bottom: 0.04 * size.width,
-                        right: 0.04 * size.width,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            city,
-                            style: TextStyle(
-                              color: Color(0xFFDDE8F0),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 0.06 * size.width,
-                            ),
-                          ),
-                          Text(
-                            cond,
-                            style: TextStyle(
-                              color: Color(0xFFDDE8F0),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 0.025 * size.height,
-                            ),
-                          ),
-                          Text(
-                            temp.toString() + " C",
-                            style: TextStyle(
-                              color: Color(0xFFDDE8F0),
-                              fontWeight: FontWeight.w600,
-                              fontSize: 0.025 * size.height,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                margin: EdgeInsets.all(0.04 * size.width),
-                height: 0.2 * size.height,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(25),
-                ),
+              FutureBuilder(
+                future: getWeather(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return WeatherCard(size, weatherData);
+                  }
+                },
               ),
               Container(
                 margin: EdgeInsets.all(0.04 * size.width),
@@ -142,6 +91,70 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Container WeatherCard(Size size, weatherData) {
+    var city = weatherData['name'];
+    var temp = weatherData['main']['temp'];
+    var cond = weatherData['weather'][0]['description'];
+
+    return Container(
+      child: Row(
+        children: [
+          Container(
+            height: 0.3 * size.width,
+            width: 0.3 * size.width,
+            margin: EdgeInsets.all(0.04 * size.width),
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              top: 0.08 * size.width,
+              bottom: 0.04 * size.width,
+              right: 0.04 * size.width,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  city,
+                  style: TextStyle(
+                    color: Color(0xFFDDE8F0),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 0.06 * size.width,
+                  ),
+                ),
+                Text(
+                  cond,
+                  style: TextStyle(
+                    color: Color(0xFFDDE8F0),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 0.025 * size.height,
+                  ),
+                ),
+                Text(
+                  temp.toString() + " C",
+                  style: TextStyle(
+                    color: Color(0xFFDDE8F0),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 0.025 * size.height,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+      margin: EdgeInsets.all(0.04 * size.width),
+      height: 0.2 * size.height,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.amber,
+        borderRadius: BorderRadius.circular(25),
       ),
     );
   }
