@@ -29,7 +29,7 @@ Container WeatherCard(Size size, weatherData) {
                 child: Text(
                   city,
                   style: TextStyle(
-                    color: Color(0xFFDDE8F0),
+                    color: Colors.blue,
                     fontWeight: FontWeight.w600,
                     fontSize: 0.06 * size.width,
                   ),
@@ -39,7 +39,7 @@ Container WeatherCard(Size size, weatherData) {
                 child: Text(
                   cond,
                   style: TextStyle(
-                    color: Color(0xFFDDE8F0),
+                    color: Colors.blue,
                     fontWeight: FontWeight.w600,
                     fontSize: 0.045 * size.width,
                   ),
@@ -49,7 +49,7 @@ Container WeatherCard(Size size, weatherData) {
                 child: Text(
                   temp.toString() + " °C",
                   style: TextStyle(
-                    color: Color(0xFFDDE8F0),
+                    color: Colors.blue,
                     fontWeight: FontWeight.w600,
                     fontSize: 0.04 * size.width,
                   ),
@@ -64,8 +64,16 @@ Container WeatherCard(Size size, weatherData) {
     height: 0.2 * size.height,
     width: double.infinity,
     decoration: BoxDecoration(
-      color: Colors.amber,
+      color: Colors.white,
       borderRadius: BorderRadius.circular(25),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 5,
+          blurRadius: 7,
+          offset: Offset(0, 3), // changes position of shadow
+        ),
+      ],
     ),
   );
 }

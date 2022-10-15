@@ -18,7 +18,7 @@ class CovidDataCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.all(0.04 * size.width),
-      padding: EdgeInsets.all(0.04 * size.width),
+      padding: EdgeInsets.all(0.03 * size.width),
       height: 0.2 * size.height,
       width: double.infinity,
       child: Column(
@@ -42,14 +42,18 @@ class CovidDataCard extends StatelessWidget {
               Column(
                 children: [
                   CircleAvatar(
-                    maxRadius: 0.085 * size.width,
-                    backgroundColor: Colors.white,
-                    child: Text(
-                      active.toString(),
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 0.05 * size.width,
+                    maxRadius: 0.095 * size.width,
+                    backgroundColor: Colors.blue,
+                    child: CircleAvatar(
+                      maxRadius: 0.085 * size.width,
+                      backgroundColor: Colors.white,
+                      child: Text(
+                        active.toString(),
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 0.05 * size.width,
+                        ),
                       ),
                     ),
                   ),
@@ -58,7 +62,7 @@ class CovidDataCard extends StatelessWidget {
                     child: Text(
                       "Active Cases",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.blue,
                         fontWeight: FontWeight.w600,
                         fontSize: 0.025 * size.width,
                       ),
@@ -69,14 +73,18 @@ class CovidDataCard extends StatelessWidget {
               Column(
                 children: [
                   CircleAvatar(
-                    maxRadius: 0.085 * size.width,
-                    backgroundColor: Colors.white,
-                    child: Text(
-                      today.toString(),
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 0.05 * size.width,
+                    maxRadius: 0.095 * size.width,
+                    backgroundColor: Colors.blue,
+                    child: CircleAvatar(
+                      maxRadius: 0.085 * size.width,
+                      backgroundColor: Colors.white,
+                      child: Text(
+                        today.toString(),
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 0.05 * size.width,
+                        ),
                       ),
                     ),
                   ),
@@ -85,7 +93,7 @@ class CovidDataCard extends StatelessWidget {
                     child: Text(
                       "Today Cases",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.blue,
                         fontWeight: FontWeight.w600,
                         fontSize: 0.025 * size.width,
                       ),
@@ -96,14 +104,18 @@ class CovidDataCard extends StatelessWidget {
               Column(
                 children: [
                   CircleAvatar(
-                    maxRadius: 0.085 * size.width,
-                    backgroundColor: Colors.white,
-                    child: Text(
-                      deaths.toString(),
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 0.05 * size.width,
+                    maxRadius: 0.095 * size.width,
+                    backgroundColor: Colors.blue,
+                    child: CircleAvatar(
+                      maxRadius: 0.085 * size.width,
+                      backgroundColor: Colors.white,
+                      child: Text(
+                        deaths.toString(),
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 0.05 * size.width,
+                        ),
                       ),
                     ),
                   ),
@@ -112,7 +124,7 @@ class CovidDataCard extends StatelessWidget {
                     child: Text(
                       "Today Deaths",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.blue,
                         fontWeight: FontWeight.w600,
                         fontSize: 0.025 * size.width,
                       ),
@@ -125,8 +137,16 @@ class CovidDataCard extends StatelessWidget {
         ],
       ),
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
     );
   }
