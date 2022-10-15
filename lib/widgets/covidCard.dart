@@ -25,7 +25,7 @@ class CovidDataCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            color: Colors.red,
+            color: Colors.blue,
             child: Text(
               "Last Updated on: " + dateTime
                 ..toString(),
@@ -62,7 +62,7 @@ class CovidDataCard extends StatelessWidget {
                     child: Text(
                       "Active Cases",
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Color(0xFF004581),
                         fontWeight: FontWeight.w600,
                         fontSize: 0.025 * size.width,
                       ),
@@ -93,7 +93,7 @@ class CovidDataCard extends StatelessWidget {
                     child: Text(
                       "Today Cases",
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Color(0xFF004581),
                         fontWeight: FontWeight.w600,
                         fontSize: 0.025 * size.width,
                       ),
@@ -124,7 +124,7 @@ class CovidDataCard extends StatelessWidget {
                     child: Text(
                       "Today Deaths",
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Color(0xFF004581),
                         fontWeight: FontWeight.w600,
                         fontSize: 0.025 * size.width,
                       ),

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import '../models/customAppBar.dart';
 import '../services/location.dart';
 import '../widgets/covidCard.dart';
+import '../widgets/warningCard.dart';
 import '../widgets/weatherCard.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -88,6 +89,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              WarningCard(
+                covidInfo: getCovid,
+                weatherInfo: getWeather,
+              ),
+              Divider(
+                thickness: 0.5,
+                color: Colors.black,
+              ),
               FutureBuilder(
                 future: getWeather(),
                 builder: (context, snapshot) {

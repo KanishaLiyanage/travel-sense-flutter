@@ -4,6 +4,9 @@ Container WeatherCard(Size size, weatherData) {
   var city = weatherData['name'];
   var temp = weatherData['main']['temp'];
   var cond = weatherData['weather'][0]['description'];
+  var icon = weatherData['weather'][0]['icon'];
+  var iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+  //risky weather cond: 09,19,11,13
 
   return Container(
     child: Row(
@@ -11,9 +14,11 @@ Container WeatherCard(Size size, weatherData) {
         Container(
           height: 0.3 * size.width,
           width: 0.3 * size.width,
-          margin: EdgeInsets.all(0.03 * size.width),
+          margin: EdgeInsets.all(0.035 * size.width),
           decoration: BoxDecoration(
-            color: Colors.white,
+            image: DecorationImage(
+              image: NetworkImage('$iconUrl'),
+            ),
           ),
         ),
         Container(

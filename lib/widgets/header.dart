@@ -54,7 +54,7 @@ class Header extends StatelessWidget {
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Icon(
-                      Icons.notifications_active_rounded,
+                      Icons.notifications_rounded,
                       size: 0.04 * size.height,
                       color: Color(0xFF004581),
                     );
