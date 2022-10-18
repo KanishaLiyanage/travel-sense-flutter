@@ -30,7 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
   var placesAroundList = [];
   var city;
   var covidData;
-  var today;
+  var todayCases;
+  var travelAlertData;
+  var travelWarn;
 
   Dio dio = Dio();
 
@@ -104,17 +106,22 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future getNotifications() async {
-    CovidAPIData covidInfo = CovidAPIData();
-    await covidInfo.getCovid();
-
     Warnings warnInfo = Warnings();
     await warnInfo.getAlerts();
 
     try {
-      covidData = covidInfo.covidData;
-      today = covidData['data']['local_new_cases'];
-      if (today >= 100) {
-        return today;
+      travelAlertData = warnInfo.warningStatus;
+      travelWarn = travelAlertData['warning_message'];
+      if (travelWarn ==
+          "It is too risky to travelling!, because there are 100+ Covid-19 active cases!") {
+        return travelWarn;
+      } else if (travelWarn == "It is too risky to travelling!") {
+        return travelWarn;
+      } else if (travelWarn == "Moderate risk, travel at your own risk.") {
+        return travelWarn;
+      } else if (travelWarn ==
+          "Low risk, but be careful about the environmental changes.") {
+        return travelWarn;
       }
     } catch (e) {
       print(e);
