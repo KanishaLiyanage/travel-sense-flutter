@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import '../utils/conditions.dart';
 import '../services/covid.dart';
 import '../services/location.dart';
 
@@ -8,6 +9,7 @@ import '../widgets/placeCardSqr.dart';
 import '../widgets/searchBar.dart';
 import '../widgets/welcomeTopic.dart';
 import '../widgets/header.dart';
+
 import 'allPlaces.dart';
 import 'aroundYou.dart';
 
@@ -101,9 +103,13 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future getCovid() async {
+  Future getNotifications() async {
     CovidAPIData covidInfo = CovidAPIData();
     await covidInfo.getCovid();
+
+    Warnings warnInfo = Warnings();
+    await warnInfo.getAlerts();
+
     try {
       covidData = covidInfo.covidData;
       today = covidData['data']['local_new_cases'];
@@ -120,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     getData();
     getAroundPlaces();
-    getCovid();
+    getNotifications();
   }
 
   @override
@@ -131,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Header(todayCases: getCovid),
+            Header(todayCases: getNotifications),
             SizedBox(height: 0.04 * size.height),
             WelcomeTopic(),
             SizedBox(height: 0.04 * size.height),
