@@ -42,7 +42,11 @@ samples, guidance on mobile development, and a full API reference.
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+[![Product Name Screen Shot][product-screenshot-1]]
+[![Product Name Screen Shot][product-screenshot-2]]
+[![Product Name Screen Shot][product-screenshot-3]]
+[![Product Name Screen Shot][product-screenshot-4]]
 
 This travelling app is based on context awareness feature.
 
@@ -132,4 +136,7 @@ Project Link: [https://github.com/KanishaLiyanage/travel-sense-flutter-app.git](
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[product-screenshot]: images/screenshot.png
+[product-screenshot-1]: images/screenshot1.jpg
+[product-screenshot-2]: images/screenshot2.jpg
+[product-screenshot-3]: images/screenshot3.jpg
+[product-screenshot-4]: images/screenshot4.jpg
