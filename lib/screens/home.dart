@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+
+import '../services/covid.dart';
 import '../services/location.dart';
 
 import '../widgets/placeCardSqr.dart';
@@ -100,17 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future getCovid() async {
-    var covidUrl = "https://www.hpb.health.gov.lk/api/get-current-statistical";
+    CovidAPIData covidInfo = CovidAPIData();
+    await covidInfo.getCovid();
     try {
-      var getCovidData = await dio.get("$covidUrl");
-      if (getCovidData.statusCode == 200) {
-        covidData = getCovidData.data;
-        today = covidData['data']['local_new_cases'];
-        if (today > 100) {
-          return today;
-        }
-      } else {
-        print("Server Error!");
+      covidData = covidInfo.covidData;
+      today = covidData['data']['local_new_cases'];
+      if (today >= 100) {
+        return today;
       }
     } catch (e) {
       print(e);

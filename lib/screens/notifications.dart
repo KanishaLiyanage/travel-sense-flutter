@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
+import '../services/weather.dart';
 import '../models/customAppBar.dart';
-import '../services/location.dart';
+import '../services/covid.dart';
 import '../widgets/covidCard.dart';
 import '../widgets/warningCard.dart';
 import '../widgets/weatherCard.dart';
@@ -22,47 +23,24 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Dio dio = Dio();
 
   Future getWeather() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-
-    // lat = location.latitude;
-    // lon = location.longitude;
-
-    lat = 7.465594251760848;
-    lon = 80.04799206741393;
-
-    var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" +
-        lat.toString() +
-        "&lon=" +
-        lon.toString() +
-        "&appid=" +
-        apiKey +
-        "&units=metric";
+    WeatherAPIData weatherInfo = WeatherAPIData();
+    await weatherInfo.getWeather();
 
     try {
-      var getWeather = await dio.get('$weatherUrl');
-
-      if (getWeather.statusCode == 200) {
-        weatherData = getWeather.data;
-        return weatherData;
-      } else {
-        print("Server error!");
-      }
+      weatherData = weatherInfo.weatherData;
+      return weatherData;
     } catch (e) {
       print(e);
     }
   }
 
   Future getCovid() async {
-    var covidUrl = "https://www.hpb.health.gov.lk/api/get-current-statistical";
+    CovidAPIData covidInfo = CovidAPIData();
+    await covidInfo.getCovid();
 
     try {
-      var getCovidData = await dio.get('$covidUrl');
-
-      if (getCovidData.statusCode == 200) {
-        covidData = getCovidData.data;
-        return covidData;
-      }
+      covidData = covidInfo.covidData;
+      return covidData;
     } catch (e) {
       print(e);
     }

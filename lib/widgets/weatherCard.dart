@@ -34,7 +34,7 @@ Container WeatherCard(Size size, weatherData) {
                 child: Text(
                   city,
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(0xFF004581),
                     fontWeight: FontWeight.w600,
                     fontSize: 0.06 * size.width,
                   ),

@@ -45,7 +45,6 @@ class _WarningCardState extends State<WarningCard> {
           "warning_message":
               "It is too risky to travelling!, because there are 100+ Covid-19 active cases!"
         };
-        print(warningStatus);
       } else if ((2 == thunderCond) ||
           (condId == 302) ||
           (condId == 310) ||
@@ -79,7 +78,6 @@ class _WarningCardState extends State<WarningCard> {
           "active_cases": todayCases,
           "warning_message": "It is too risky to travelling!"
         };
-        print(warningStatus);
       } else if ((condId == 300) ||
           (condId == 501) ||
           (condId == 611) ||
@@ -89,9 +87,8 @@ class _WarningCardState extends State<WarningCard> {
         return warningStatus = {
           "description": weatherCondition,
           "active_cases": todayCases,
-          "warning_message": "Moderate risk, Travel at your own risk."
+          "warning_message": "Moderate risk, travel at your own risk."
         };
-        print(warningStatus);
       } else if ((condId == 301) ||
           (condId == 500) ||
           (condId == 600) ||
@@ -104,16 +101,15 @@ class _WarningCardState extends State<WarningCard> {
         return warningStatus = {
           "description": weatherCondition,
           "active_cases": todayCases,
-          "warning_message": "Low risk, but be careful about the environment."
+          "warning_message":
+              "Low risk, but be careful about the environmental changes."
         };
-        print(warningStatus);
       } else {
         return warningStatus = {
           "description": weatherCondition,
           "active_cases": todayCases,
           "warning_message": "It's safe for travelling"
         };
-        print(warningStatus);
       }
     } catch (e) {
       print(e);

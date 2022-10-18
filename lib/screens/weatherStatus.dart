@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 
 import '../models/customAppBar.dart';
-import '../services/location.dart';
 
 class WeatherStatusScreen extends StatelessWidget {
   const WeatherStatusScreen({Key? key}) : super(key: key);
