@@ -2,16 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:travel_sense/services/covid.dart';
 import 'package:travel_sense/services/weather.dart';
 
-class WarningCard extends StatelessWidget {
+class WarningCard extends StatefulWidget {
+  @override
+  State<WarningCard> createState() => _WarningCardState();
+}
+
+class _WarningCardState extends State<WarningCard> {
   var covid;
+
   var weather;
+
   var todayCases;
+
   var weatherCondition;
-  var warningMsg;
+
   var condId;
+
   var thunderCond;
 
-  Future<void> getWarn() async {
+  var warningStatus;
+
+  Future getWarn() async {
     try {
       CovidAPIData covidInfo = CovidAPIData();
       await covidInfo.getCovid();
@@ -23,17 +34,19 @@ class WarningCard extends StatelessWidget {
       weather = weatherInfo.weatherData;
 
       todayCases = covid['data']['local_new_cases'];
+      todayCases = 100;
       weatherCondition = weather['weather'][0]['description'];
       condId = weather['weather'][0]['id'];
       thunderCond = (condId / 100).toInt();
-      // condId = 299;
-      print(todayCases);
-      print("cond ID: " + condId.toString());
-      print("desc: " + weatherCondition.toString());
 
       if (todayCases >= 100) {
-        warningMsg = "It is too risky to travelling!";
-        print(warningMsg);
+        return warningStatus = {
+          "description": weatherCondition,
+          "active_cases": todayCases,
+          "warning_message":
+              "It is too risky to travelling!, because there are 100+ Covid-19 active cases!"
+        };
+        print(warningStatus);
       } else if ((2 == thunderCond) ||
           (condId == 302) ||
           (condId == 310) ||
@@ -62,16 +75,24 @@ class WarningCard extends StatelessWidget {
           (condId == 731) ||
           (condId == 751) ||
           (condId == 781)) {
-        warningMsg = "It is too risky to travelling!";
-        print(warningMsg);
+        return warningStatus = {
+          "description": weatherCondition,
+          "active_cases": todayCases,
+          "warning_message": "It is too risky to travelling!"
+        };
+        print(warningStatus);
       } else if ((condId == 300) ||
           (condId == 501) ||
           (condId == 611) ||
           (condId == 711) ||
           (condId == 762) ||
           (condId == 771)) {
-        warningMsg = "Moderate risk, Travel at your own risk.";
-        print(warningMsg);
+        return warningStatus = {
+          "description": weatherCondition,
+          "active_cases": todayCases,
+          "warning_message": "Moderate risk, Travel at your own risk."
+        };
+        print(warningStatus);
       } else if ((condId == 301) ||
           (condId == 500) ||
           (condId == 600) ||
@@ -81,15 +102,30 @@ class WarningCard extends StatelessWidget {
           (condId == 762) ||
           (condId == 721) ||
           (condId == 701)) {
-        warningMsg = "Low risk, but be careful about the environment.";
-        print(warningMsg);
+        return warningStatus = {
+          "description": weatherCondition,
+          "active_cases": todayCases,
+          "warning_message": "Low risk, but be careful about the environment."
+        };
+        print(warningStatus);
       } else {
-        warningMsg = "It's safe for travelling";
-        print(warningMsg);
+        return warningStatus = {
+          "description": weatherCondition,
+          "active_cases": todayCases,
+          "warning_message": "It's safe for travelling"
+        };
+        print(warningStatus);
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getWarn();
+    super.initState();
   }
 
   @override
@@ -101,41 +137,62 @@ class WarningCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            margin: EdgeInsets.all(0.04 * size.width),
-            child: Text(
-              "Heavy Thunderstom & Covid-19 100+ active cases in today!",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.blue,
-                fontWeight: FontWeight.w600,
-                fontSize: 0.05 * size.width,
-              ),
+            margin: EdgeInsets.symmetric(horizontal: 0.04 * size.width),
+            child: FutureBuilder(
+              future: getWarn(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  return Text(
+                    warningStatus['description'] +
+                        " & " +
+                        warningStatus['active_cases'].toString() +
+                        " active Covid-19 cases in today!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 0.05 * size.width,
+                    ),
+                  );
+                }
+              },
             ),
           ),
-          Container(
-            margin: EdgeInsets.all(0.04 * size.width),
-            child: Text(
-              "It is too risky to travelling!",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 0.05 * size.width,
-              ),
-            ),
-            decoration: BoxDecoration(
-              color: Colors.red,
-            ),
-          ),
-          ElevatedButton(
-            onPressed: getWarn,
-            child: Text("get"),
+          FutureBuilder(
+            future: getWarn(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 0.04 * size.width),
+                  child: Text(
+                    warningStatus['warning_message'],
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 0.05 * size.width,
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),
       margin: EdgeInsets.all(0.04 * size.width),
       padding: EdgeInsets.all(0.05 * size.width),
-      // height: 0.3 * size.height,
-      height: 0.5 * size.height,
+      height: 0.3 * size.height,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
