@@ -15,11 +15,11 @@ class WeatherAPIData {
       Location location = Location();
       await location.getCurrentLocation();
 
-      // lat = location.latitude;
-      // lon = location.longitude;
+      lat = location.latitude;
+      lon = location.longitude;
 
-      lat = 7.465594251760848;
-      lon = 80.04799206741393;
+      // lat = 7.465594251760848;
+      // lon = 80.04799206741393;
 
       var weatherUrl = "https://api.openweathermap.org/data/2.5/weather?lat=" +
           lat.toString() +

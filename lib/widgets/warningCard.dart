@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_sense/services/covid.dart';
-import 'package:travel_sense/services/weather.dart';
-import 'package:travel_sense/utils/conditions.dart';
+
+import '../utils/conditions.dart';
 
 class WarningCard extends StatefulWidget {
   @override
