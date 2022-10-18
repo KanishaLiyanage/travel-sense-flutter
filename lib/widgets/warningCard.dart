@@ -8,6 +8,8 @@ class WarningCard extends StatelessWidget {
   var todayCases;
   var weatherCondition;
   var warningMsg;
+  var condId;
+  var thunderCond;
 
   Future<void> getWarn() async {
     try {
@@ -22,12 +24,64 @@ class WarningCard extends StatelessWidget {
 
       todayCases = covid['data']['local_new_cases'];
       weatherCondition = weather['weather'][0]['description'];
-
+      condId = weather['weather'][0]['id'];
+      thunderCond = (condId / 100).toInt();
+      // condId = 299;
       print(todayCases);
-      print(weatherCondition);
+      print("cond ID: " + condId.toString());
+      print("desc: " + weatherCondition.toString());
 
-      if (todayCases >= 100 && weatherCondition == "overcast clouds") {
+      if (todayCases >= 100) {
         warningMsg = "It is too risky to travelling!";
+        print(warningMsg);
+      } else if ((2 == thunderCond) ||
+          (condId == 302) ||
+          (condId == 310) ||
+          (condId == 311) ||
+          (condId == 312) ||
+          (condId == 313) ||
+          (condId == 314) ||
+          (condId == 321) ||
+          (condId == 502) ||
+          (condId == 503) ||
+          (condId == 504) ||
+          (condId == 511) ||
+          (condId == 520) ||
+          (condId == 521) ||
+          (condId == 522) ||
+          (condId == 531) ||
+          (condId == 602) ||
+          (condId == 612) ||
+          (condId == 613) ||
+          (condId == 615) ||
+          (condId == 616) ||
+          (condId == 620) ||
+          (condId == 621) ||
+          (condId == 622) ||
+          (condId == 741) ||
+          (condId == 731) ||
+          (condId == 751) ||
+          (condId == 781)) {
+        warningMsg = "It is too risky to travelling!";
+        print(warningMsg);
+      } else if ((condId == 300) ||
+          (condId == 501) ||
+          (condId == 611) ||
+          (condId == 711) ||
+          (condId == 762) ||
+          (condId == 771)) {
+        warningMsg = "Moderate risk, Travel at your own risk.";
+        print(warningMsg);
+      } else if ((condId == 301) ||
+          (condId == 500) ||
+          (condId == 600) ||
+          (condId == 601) ||
+          (condId == 701) ||
+          (condId == 761) ||
+          (condId == 762) ||
+          (condId == 721) ||
+          (condId == 701)) {
+        warningMsg = "Low risk, but be careful about the environment.";
         print(warningMsg);
       } else {
         warningMsg = "It's safe for travelling";
