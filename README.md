@@ -44,9 +44,9 @@ samples, guidance on mobile development, and a full API reference.
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-This Blog website is made for my university assignment.
+This travelling app is based on context awareness feature.
 
-This Blog website is only for gamers who are like to post upcoming games, share experiences about played games, and post latest news all about gaming platform.
+This app can sense user's currrent location coordinates using device GPS and then recommend to user near travelling locations. This app giving weather data, weather alerts, & latest Covid-19 information according to user's current location. Also this app notify the user to travel is saftey or not according to weather condition and Covid-19 status.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -73,41 +73,38 @@ This Website is built with below technologies :point_down:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is how to setting up this project locally.
+This is how to setting up this project.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
+### Pre-requisites
 
-This is how to use the website and how to install packages locally.
-* npm
+This will add a line like this to your package's pubspec.yaml.
+* pub
   ```sh
-  npm install
-  ```
-OR
-* npm
-  ```sh
-  npm install npm@latest -g
+  flutter pub get
   ```
 
 ### Installation
 
-_Below instructions are how to setup and run this website lacally. Read this instructions very carefully!._
+_Below instructions are how to setup and run this app. Read this instructions very carefully!._
 
-1. Create a database in MongoDB Atlas at [https://account.mongodb.com/account/login](https://account.mongodb.com/account/login) to get a cloud database service
-   or you can create MongoDB locally.
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/KanishaLiyanage/gamedudes-blog-web-expressjs.git
    ```
-3. Install NPM packages
+2. clear Flutter's Build cache
    ```sh
-   npm install
+   flutter clean
    ```
-4. Create `.env` file in root directory.
-5. Enter your MongoDB Atlas database url in `.env`
-   ```js
-   const ATLAS_URL = 'ENTER YOUR MongoDB database url';
+3. install dependancies
+   ```sh
+   flutter pub get
    ```
+4. run app
+   ```sh
+   flutter run
+   ```
+   and then press r or R for respectively hot-reload and full-reload.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -127,7 +124,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 * LinkedIn - [@kanisha-liyanage](https://www.linkedin.com/in/kanisha-liyanage)
 * Twitter - [@DilumKanisha](https://mobile.twitter.com/DilumKanisha)
 
-Project Link: [https://github.com/KanishaLiyanage/gamedudes-blog-web-expressjs](https://github.com/KanishaLiyanage/gamedudes-blog-web-expressjs.git)
+Project Link: [https://github.com/KanishaLiyanage/travel-sense-flutter-app.git](https://github.com/KanishaLiyanage/travel-sense-flutter-app.git)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
