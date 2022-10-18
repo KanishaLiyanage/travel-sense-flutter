@@ -9,17 +9,11 @@ class WarningCard extends StatefulWidget {
 
 class _WarningCardState extends State<WarningCard> {
   var covid;
-
   var weather;
-
   var todayCases;
-
   var weatherCondition;
-
   var condId;
-
   var thunderCond;
-
   var warningStatus;
 
   Future getWarn() async {

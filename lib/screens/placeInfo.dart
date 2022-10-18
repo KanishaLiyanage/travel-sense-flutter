@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/backBtn.dart';
+import '../models/backButton.dart';
 
 class PlaceInfo extends StatelessWidget {
   String img;
