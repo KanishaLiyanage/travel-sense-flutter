@@ -94,7 +94,7 @@ _Below instructions are how to setup and run this app. Read this instructions ve
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/KanishaLiyanage/gamedudes-blog-web-expressjs.git
+   git clone https://github.com/KanishaLiyanage/travel-sense-flutter-app.git
    ```
 2. clear Flutter's Build cache
    ```sh
