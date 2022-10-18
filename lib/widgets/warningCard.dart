@@ -1,22 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class WarningCard extends StatelessWidget {
-  Function covidInfo;
-  Function weatherInfo;
-
-  WarningCard({
-    required this.covidInfo,
-    required this.weatherInfo,
-  });
-
-  Future warnMessage() async {
-    try {} catch (e) {
-      print(e);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,52 +13,29 @@ class WarningCard extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.all(0.04 * size.width),
-            child: FutureBuilder(
-                future: covidInfo(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                    ;
-                  } else {
-                    return Text(
-                      "Heavy Thunderstom & Covid-19 100+ active cases in today!",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 0.05 * size.width,
-                      ),
-                    );
-                  }
-                }),
+            child: Text(
+              "Heavy Thunderstom & Covid-19 100+ active cases in today!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.w600,
+                fontSize: 0.05 * size.width,
+              ),
+            ),
           ),
           Container(
             margin: EdgeInsets.all(0.04 * size.width),
-            child: FutureBuilder(
-                future: weatherInfo(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    return Container(
-                      child: Text(
-                        "It is too risky to travelling!",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 0.05 * size.width,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                      ),
-                    );
-                  }
-                }),
+            child: Text(
+              "It is too risky to travelling!",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 0.05 * size.width,
+              ),
+            ),
+            decoration: BoxDecoration(
+              color: Colors.red,
+            ),
           ),
         ],
       ),

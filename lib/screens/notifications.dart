@@ -89,10 +89,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              WarningCard(
-                covidInfo: getCovid,
-                weatherInfo: getWeather,
-              ),
+              WarningCard(),
               Divider(
                 thickness: 0.5,
                 color: Colors.black,
