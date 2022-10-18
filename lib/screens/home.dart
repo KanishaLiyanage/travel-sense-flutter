@@ -20,7 +20,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  var url = "https://travel-sense-app-rest-api.herokuapp.com";
+  //var url = "https://travel-sense-app-rest-api.herokuapp.com";
+  var url = "https://travel-sense-rest-api.onrender.com";
   var geoCoderKey =
       "pk.eyJ1Ijoia2FuaXNoYWwiLCJhIjoiY2w2aXluanA5MHNnejNjcGRvYmZ6ZXViMyJ9.ugUAXJwneE9q_ifKtsfYiQ";
   var latitude;
