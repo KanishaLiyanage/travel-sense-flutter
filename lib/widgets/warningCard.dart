@@ -34,7 +34,6 @@ class _WarningCardState extends State<WarningCard> {
       weather = weatherInfo.weatherData;
 
       todayCases = covid['data']['local_new_cases'];
-      todayCases = 100;
       weatherCondition = weather['weather'][0]['description'];
       condId = weather['weather'][0]['id'];
       thunderCond = (condId / 100).toInt();
