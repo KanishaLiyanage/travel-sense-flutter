@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'location.dart';
 
-class WeatherAPI {
+class WeatherAPIData {
   var lat;
   var lon;
   var apiKey = "5f39ac098bfb1d20edb29bbc65746da8";
