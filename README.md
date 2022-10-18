@@ -55,7 +55,7 @@ This app can sense user's currrent location coordinates using device GPS and the
 
 This Website is built with below technologies :point_down:
 
-* ![Node.js][Node.js]
+* ![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
 
 * ![Express.js][Express.js]
 
