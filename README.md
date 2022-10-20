@@ -1,6 +1,13 @@
-# travel_sense
+<a name="readme-top"></a>
 
-A new Flutter project.
+<div align="center">
+  <h1 align="center">Travel Sense Flutter App</h1>
+  <br />
+  <p align="center">
+    This is a travelling locations recommendation app.
+    <br />
+  </p>
+</div>
 
 ## Getting Started
 
