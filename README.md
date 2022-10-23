@@ -53,8 +53,8 @@ samples, guidance on mobile development, and a full API reference.
 ![Product Name Screen Shot][product-screenshot-1]
 ![Product Name Screen Shot][product-screenshot-2]
 
-This traveling app is based on a context awareness feature.
-This app can sense the user's current location coordinates using the device's GPS and then recommend to the user near traveling locations. This app gives weather data, weather alerts, & latest Covid-19 information according to the user's current location. Also, this app notifies the user whether to travel is safety or not according to weather conditions and Covid-19 status.
+This traveling app is based on a context awareness feature. 
+This app can sense the user's current location coordinates using the digital device's GPS and then recommend the user traveling locations nearby. This app gives weather data, weather alerts, & latest Covid-19 information according to the user's current location. Also, this app notifies the user whether travel is safe or not according to weather conditions and Covid-19 status based on location.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
